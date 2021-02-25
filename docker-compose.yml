@@ -1,0 +1,10 @@
+version: '3'
+services:
+  dynamo-db:
+    container_name: dynamodb
+    image: instructure/dynamo-local-admin
+    ports:
+      - 8000:8000
+    environment:
+      - AWS_ACCESS_KEY_ID=key
+      - AWS_ACCESS_SECRET_KEY=secret
