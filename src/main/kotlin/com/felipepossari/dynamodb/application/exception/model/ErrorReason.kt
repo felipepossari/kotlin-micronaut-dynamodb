@@ -7,5 +7,6 @@ enum class ErrorReason(val code: String, val message: String) {
     PHONE_INVALID("003", "Phone cannot be null or bigger than 25 characters"),
     PASSWORD_INVALID("004", "Password cannot be null"),
 
-    RESOURCE_ALREADY_EXISTS("010", "Resource already exists")
+    RESOURCE_ALREADY_EXISTS("010", "Resource already exists"),
+    RESOURCE_NOT_FOUND("011", "Resource not found"),
 }

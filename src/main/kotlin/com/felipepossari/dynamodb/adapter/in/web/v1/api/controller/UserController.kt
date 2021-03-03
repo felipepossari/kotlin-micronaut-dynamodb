@@ -5,13 +5,15 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserRequest
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
 import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.FindUserByEmailUseCase
 import io.micronaut.http.annotation.Controller
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 @Controller("/users")
 class UserController(
-        private val createUserUseCase: CreateUserUseCase
+        private val createUserUseCase: CreateUserUseCase,
+        private val findUserByEmailUseCase: FindUserByEmailUseCase
 ) : UserApi {
 
     companion object {
@@ -31,7 +33,7 @@ class UserController(
 
     override fun getByEmail(email: String): UserResponse {
         logger.info("Getting user by email")
-        TODO("Not yet implemented")
+        return UserResponse(findUserByEmailUseCase.execute(email))
     }
 
     override fun delete(email: String): UserResponse {
