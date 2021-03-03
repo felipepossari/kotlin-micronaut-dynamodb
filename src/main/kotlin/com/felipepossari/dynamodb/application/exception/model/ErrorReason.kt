@@ -9,4 +9,5 @@ enum class ErrorReason(val code: String, val message: String) {
 
     RESOURCE_ALREADY_EXISTS("010", "Resource already exists"),
     RESOURCE_NOT_FOUND("011", "Resource not found"),
+    EMAIL_ALREADY_USED("012", "Email already used by another resource")
 }

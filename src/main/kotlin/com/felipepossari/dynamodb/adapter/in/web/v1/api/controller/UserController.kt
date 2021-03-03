@@ -6,6 +6,7 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
 import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
 import com.felipepossari.dynamodb.application.port.`in`.FindUserByEmailUseCase
+import com.felipepossari.dynamodb.application.port.`in`.UpdateUserUseCase
 import io.micronaut.http.annotation.Controller
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -13,7 +14,8 @@ import org.slf4j.LoggerFactory
 @Controller("/users")
 class UserController(
         private val createUserUseCase: CreateUserUseCase,
-        private val findUserByEmailUseCase: FindUserByEmailUseCase
+        private val findUserByEmailUseCase: FindUserByEmailUseCase,
+        private val updateUserUseCase: UpdateUserUseCase
 ) : UserApi {
 
     companion object {
@@ -26,9 +28,9 @@ class UserController(
         return UserResponse(user)
     }
 
-    override fun update(email: String, userRequest: UserRequest): UserResponse {
+    override fun put(email: String, userRequest: UserRequest): UserResponse {
         logger.info("Updating user")
-        TODO("Not yet implemented")
+        return UserResponse(updateUserUseCase.execute(email, userRequest.toDomain()))
     }
 
     override fun getByEmail(email: String): UserResponse {

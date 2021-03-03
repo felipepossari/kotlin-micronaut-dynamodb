@@ -14,7 +14,7 @@ interface UserApi {
     fun post(@Body userRequest: UserRequest): UserResponse
 
     @Put("/{email}")
-    fun update(@PathVariable email: String, @Body userRequest: UserRequest): UserResponse
+    fun put(@PathVariable email: String, @Body userRequest: UserRequest): UserResponse
 
     @Get("/{email}")
     fun getByEmail(@PathVariable email: String): UserResponse

@@ -3,7 +3,7 @@ package com.felipepossari.dynamodb.application.domain
 import com.felipepossari.dynamodb.application.exception.model.ErrorReason
 import com.felipepossari.dynamodb.application.exception.InvalidDomainFieldException
 
-class User (
+data class User (
         val email: String = "",
         val name: String = "",
         val phone: String = "",
