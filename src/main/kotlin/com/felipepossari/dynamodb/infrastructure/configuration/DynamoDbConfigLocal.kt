@@ -11,18 +11,19 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient
+import software.amazon.awssdk.services.dynamodb.model.ResourceInUseException
 import java.net.URI
 import javax.inject.Singleton
 
 @Factory
-@Requires(env = ["production"])
-class DynamoDbConfig {
+@Requires(notEnv = ["production"])
+class DynamoDbConfigLocal {
 
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
     }
 
-    @Bean
+    @Singleton
     fun dynamoDbClient(): DynamoDbClient {
         return DynamoDbClient.builder()
                 .region(Region.SA_EAST_1)
@@ -30,16 +31,27 @@ class DynamoDbConfig {
                 .build()
     }
 
-    @Bean
+    @Singleton
     fun dynamoDbClientEnhanced(): DynamoDbEnhancedClient {
         return DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(dynamoDbClient())
                 .build()
     }
 
-    @Bean
-    fun userTable(): DynamoDbTable<UserEntity> =
-            dynamoDbClientEnhanced()
-                    .table("user", TableSchema.fromBean(UserEntity::class.java))
+    @Singleton
+    fun userTable(): DynamoDbTable<UserEntity> {
+        val userTable = dynamoDbClientEnhanced()
+                .table(UserEntity.TABLE_NAME, TableSchema.fromBean(UserEntity::class.java))
+        createUserTable(userTable)
+        return userTable
+    }
 
+    private fun createUserTable(table: DynamoDbTable<*>) {
+        logger.info("--- Creating ${table.tableName()} table ---")
+        try {
+            table.createTable()
+        }catch (e: ResourceInUseException){
+            logger.info(" --- Table ${table.tableName()} already created ---")
+        }
+    }
 }

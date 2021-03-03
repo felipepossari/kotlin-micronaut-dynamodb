@@ -18,10 +18,21 @@ data class UserEntity(
 
         @get:DynamoDbAttribute("password")
         var password: String = ""
-){
-        constructor(user: User): this(
-                email = user.email,
-                name = user.name,
-                phone = user.phone,
-                password= user.password)
+) {
+    companion object{
+        const val TABLE_NAME: String = "users"
+    }
+
+    constructor(user: User) : this(
+            email = user.email,
+            name = user.name,
+            phone = user.phone,
+            password = user.password)
 }
+
+fun UserEntity.toDomain() =
+        User(
+                email = this.email,
+                name = this.name,
+                phone = this.phone,
+                password = this.password)

@@ -19,19 +19,23 @@ class UserController(
     }
 
     override fun post(userRequest: UserRequest): UserResponse {
+        logger.info("Creating user")
         val user = createUserUseCase.execute(userRequest.toDomain())
         return UserResponse(user)
     }
 
-    override fun update(userRequest: UserRequest): UserResponse {
+    override fun update(email: String, userRequest: UserRequest): UserResponse {
+        logger.info("Updating user")
         TODO("Not yet implemented")
     }
 
     override fun getByEmail(email: String): UserResponse {
+        logger.info("Getting user by email")
         TODO("Not yet implemented")
     }
 
     override fun delete(email: String): UserResponse {
+        logger.info("Deleting user")
         TODO("Not yet implemented")
     }
 

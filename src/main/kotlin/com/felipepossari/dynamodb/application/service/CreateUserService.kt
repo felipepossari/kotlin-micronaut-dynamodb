@@ -7,9 +7,15 @@ import javax.inject.Singleton
 
 @Singleton
 class CreateUserService(
-        private val userRepositoryPort: UserRepositoryPort
+        private val userRepositoryPort: UserRepositoryPort,
+        private val userDataValidator: UserDataValidator
 ) : CreateUserUseCase {
     override fun execute(user: User): User {
+        user.validateFields()
+        userDataValidator.validateUserUnique(user)
+
+
+
         userRepositoryPort.save(user)
         return user
     }
