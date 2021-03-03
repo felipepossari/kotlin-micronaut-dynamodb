@@ -7,6 +7,7 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
 import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
 import com.felipepossari.dynamodb.application.port.`in`.FindUserByEmailUseCase
 import com.felipepossari.dynamodb.application.port.`in`.UpdateUserUseCase
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -22,25 +23,27 @@ class UserController(
         private val logger: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
     }
 
-    override fun post(userRequest: UserRequest): UserResponse {
+    override fun post(userRequest: UserRequest): HttpResponse<UserResponse> {
         logger.info("Creating user")
         val user = createUserUseCase.execute(userRequest.toDomain())
-        return UserResponse(user)
+        return HttpResponse.created(UserResponse(user))
     }
 
-    override fun put(email: String, userRequest: UserRequest): UserResponse {
+    override fun put(email: String, userRequest: UserRequest): HttpResponse<UserResponse> {
         logger.info("Updating user")
-        return UserResponse(updateUserUseCase.execute(email, userRequest.toDomain()))
+        val updatedUser = updateUserUseCase.execute(email, userRequest.toDomain())
+        return HttpResponse.ok(UserResponse(updatedUser))
     }
 
-    override fun getByEmail(email: String): UserResponse {
+    override fun getByEmail(email: String): HttpResponse<UserResponse> {
         logger.info("Getting user by email")
-        return UserResponse(findUserByEmailUseCase.execute(email))
+        val user = findUserByEmailUseCase.execute(email)
+        return HttpResponse.ok(UserResponse(user))
     }
 
-    override fun delete(email: String): UserResponse {
+    override fun delete(email: String): HttpResponse<*> {
         logger.info("Deleting user")
-        TODO("Not yet implemented")
+        return HttpResponse.ok(Unit)
     }
 
 }

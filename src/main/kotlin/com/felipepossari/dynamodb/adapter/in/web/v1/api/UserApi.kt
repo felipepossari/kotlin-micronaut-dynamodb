@@ -2,6 +2,7 @@ package com.felipepossari.dynamodb.adapter.`in`.web.v1.api
 
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserRequest
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Get
@@ -11,14 +12,14 @@ import io.micronaut.http.annotation.Put
 
 interface UserApi {
     @Post
-    fun post(@Body userRequest: UserRequest): UserResponse
+    fun post(@Body userRequest: UserRequest): HttpResponse<UserResponse>
 
     @Put("/{email}")
-    fun put(@PathVariable email: String, @Body userRequest: UserRequest): UserResponse
+    fun put(@PathVariable email: String, @Body userRequest: UserRequest): HttpResponse<UserResponse>
 
     @Get("/{email}")
-    fun getByEmail(@PathVariable email: String): UserResponse
+    fun getByEmail(@PathVariable email: String): HttpResponse<UserResponse>
 
     @Delete("/email")
-    fun delete(@PathVariable email: String): UserResponse
+    fun delete(@PathVariable email: String): HttpResponse<*>
 }
