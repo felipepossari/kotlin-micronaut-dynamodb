@@ -11,12 +11,12 @@ class CreateUserService(
         private val userDataValidator: UserDataValidator
 ) : CreateUserUseCase {
     override fun execute(user: User): User {
-        user.validateFields()
+        user.validateFieldForCreation()
         userDataValidator.validateUserUnique(user)
 
 
 
-        userRepositoryPort.save(user)
+        userRepositoryPort.create(user)
         return user
     }
 }

@@ -1,7 +1,8 @@
 package com.felipepossari.dynamodb.adapter.`in`.web.v1.api.controller
 
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.UserApi
-import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserRequest
+import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserCreateRequest
+import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserUpdateRequest
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
 import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
@@ -23,13 +24,13 @@ class UserController(
         private val logger: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
     }
 
-    override fun post(userRequest: UserRequest): HttpResponse<UserResponse> {
+    override fun post(userRequest: UserCreateRequest): HttpResponse<UserResponse> {
         logger.info("Creating user")
         val user = createUserUseCase.execute(userRequest.toDomain())
         return HttpResponse.created(UserResponse(user))
     }
 
-    override fun put(email: String, userRequest: UserRequest): HttpResponse<UserResponse> {
+    override fun put(email: String, userRequest: UserUpdateRequest): HttpResponse<UserResponse> {
         logger.info("Updating user")
         val updatedUser = updateUserUseCase.execute(email, userRequest.toDomain())
         return HttpResponse.ok(UserResponse(updatedUser))

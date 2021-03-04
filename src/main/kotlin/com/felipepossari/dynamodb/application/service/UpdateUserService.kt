@@ -13,16 +13,14 @@ class UpdateUserService(
         private val userDataValidator: UserDataValidator
 ) : UpdateUserUseCase {
     override fun execute(email: String, user: User): User {
-        user.validateFields()
-        userDataValidator.validateUserUpdate(email, user)
+        user.validateFieldForUpdate()
         val currentUser = retrieveUser(email)
         val updatedUser = currentUser.copy(
-                email = user.email,
                 name = user.name,
                 phone = user.phone,
                 password = user.password
         )
-        userRepositoryPort.save(updatedUser)
+        userRepositoryPort.update(updatedUser)
         return user
     }
 

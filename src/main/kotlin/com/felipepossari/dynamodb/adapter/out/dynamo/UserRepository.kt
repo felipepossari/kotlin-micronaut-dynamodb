@@ -14,7 +14,7 @@ class UserRepository(
         private val userTable: DynamoDbTable<UserEntity>
 ) : UserRepositoryPort {
 
-    override fun save(user: User) {
+    override fun create(user: User) {
         userTable.putItem(UserEntity(
                 user.email,
                 user.name,
@@ -25,6 +25,15 @@ class UserRepository(
 
     override fun findByEmail(email: String): User? =
             userTable.getItem(createPartitionKey(email))?.toDomain()
+
+    override fun update(user: User) {
+        userTable.updateItem(UserEntity(
+                user.email,
+                user.name,
+                user.phone,
+                user.password
+        ))
+    }
 
     private fun createPartitionKey(email: String) =
             builder().partitionValue(email).build()

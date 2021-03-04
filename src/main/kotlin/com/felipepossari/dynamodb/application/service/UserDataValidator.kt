@@ -16,12 +16,4 @@ class UserDataValidator(private val userRepositoryPort: UserRepositoryPort) {
             throw ResourceAlreadyExistsException(ErrorReason.RESOURCE_ALREADY_EXISTS)
         }
     }
-
-    fun validateUserUpdate(email: String, user: User) {
-        val user = userRepositoryPort.findByEmail(user.email)
-                ?: throw ResourceNotFoundException(ErrorReason.RESOURCE_NOT_FOUND)
-        if(user.email != email){
-            throw InvalidUpdateFieldException(ErrorReason.EMAIL_ALREADY_USED)
-        }
-    }
 }
