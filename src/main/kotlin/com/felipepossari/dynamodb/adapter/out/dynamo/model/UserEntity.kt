@@ -4,11 +4,18 @@ import com.felipepossari.dynamodb.application.domain.User
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey
 
 @DynamoDbBean
 data class UserEntity(
-        @get:DynamoDbPartitionKey
+        @get:DynamoDbAttribute("email")
         var email: String = "",
+
+        @get:DynamoDbPartitionKey
+        var pk: String = "USER#$email",
+
+        @get:DynamoDbSortKey
+        var sk: String = "PROFILE#$email",
 
         @get:DynamoDbAttribute("name")
         var name: String = "",
@@ -19,7 +26,7 @@ data class UserEntity(
         @get:DynamoDbAttribute("password")
         var password: String = ""
 ) {
-    companion object{
+    companion object {
         const val TABLE_NAME: String = "users"
     }
 
@@ -36,3 +43,4 @@ fun UserEntity.toDomain() =
                 name = this.name,
                 phone = this.phone,
                 password = this.password)
+

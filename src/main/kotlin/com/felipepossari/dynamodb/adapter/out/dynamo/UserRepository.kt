@@ -15,26 +15,20 @@ class UserRepository(
 ) : UserRepositoryPort {
 
     override fun create(user: User) {
-        userTable.putItem(UserEntity(
-                user.email,
-                user.name,
-                user.phone,
-                user.password
-        ))
+        val entitiy = UserEntity(user)
+        userTable.putItem(entitiy)
     }
 
     override fun findByEmail(email: String): User? =
             userTable.getItem(createPartitionKey(email))?.toDomain()
 
     override fun update(user: User) {
-        userTable.updateItem(UserEntity(
-                user.email,
-                user.name,
-                user.phone,
-                user.password
-        ))
+        userTable.updateItem(UserEntity(user))
     }
 
     private fun createPartitionKey(email: String) =
-            builder().partitionValue(email).build()
+            builder()
+                    .partitionValue("USER#$email")
+                    .sortValue("PROFILE#$email")
+                    .build()
 }
