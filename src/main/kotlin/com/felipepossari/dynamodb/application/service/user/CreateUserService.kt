@@ -1,7 +1,7 @@
-package com.felipepossari.dynamodb.application.service
+package com.felipepossari.dynamodb.application.service.user
 
 import com.felipepossari.dynamodb.application.domain.User
-import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.user.CreateUserUseCase
 import com.felipepossari.dynamodb.application.port.out.UserRepositoryPort
 import javax.inject.Singleton
 

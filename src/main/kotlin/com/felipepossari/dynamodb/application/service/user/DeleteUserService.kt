@@ -1,8 +1,8 @@
-package com.felipepossari.dynamodb.application.service
+package com.felipepossari.dynamodb.application.service.user
 
 import com.felipepossari.dynamodb.application.exception.ResourceNotFoundException
 import com.felipepossari.dynamodb.application.exception.model.ErrorReason
-import com.felipepossari.dynamodb.application.port.`in`.DeleteUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.user.DeleteUserUseCase
 import com.felipepossari.dynamodb.application.port.out.UserRepositoryPort
 import javax.inject.Singleton
 
@@ -11,7 +11,7 @@ class DeleteUserService(
         private val userRepositoryPort: UserRepositoryPort
 ) : DeleteUserUseCase {
     override fun execute(email: String) {
-        val user = userRepositoryPort.findByEmail(email)
+        userRepositoryPort.findByEmail(email)
                 ?: throw ResourceNotFoundException(ErrorReason.RESOURCE_NOT_FOUND)
         userRepositoryPort.delete(email)
     }

@@ -1,9 +1,7 @@
-package com.felipepossari.dynamodb.application.service
+package com.felipepossari.dynamodb.application.service.user
 
 import com.felipepossari.dynamodb.application.domain.User
-import com.felipepossari.dynamodb.application.exception.InvalidUpdateFieldException
 import com.felipepossari.dynamodb.application.exception.ResourceAlreadyExistsException
-import com.felipepossari.dynamodb.application.exception.ResourceNotFoundException
 import com.felipepossari.dynamodb.application.exception.model.ErrorReason
 import com.felipepossari.dynamodb.application.port.out.UserRepositoryPort
 import javax.inject.Singleton
