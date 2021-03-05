@@ -6,6 +6,7 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserUpdateRequ
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
 import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.DeleteUserUseCase
 import com.felipepossari.dynamodb.application.port.`in`.FindUserByEmailUseCase
 import com.felipepossari.dynamodb.application.port.`in`.UpdateUserUseCase
 import io.micronaut.http.HttpResponse
@@ -17,7 +18,8 @@ import org.slf4j.LoggerFactory
 class UserController(
         private val createUserUseCase: CreateUserUseCase,
         private val findUserByEmailUseCase: FindUserByEmailUseCase,
-        private val updateUserUseCase: UpdateUserUseCase
+        private val updateUserUseCase: UpdateUserUseCase,
+        private val deleteUserUseCase: DeleteUserUseCase
 ) : UserApi {
 
     companion object {
@@ -44,7 +46,8 @@ class UserController(
 
     override fun delete(email: String): HttpResponse<*> {
         logger.info("Deleting user")
-        return HttpResponse.ok(Unit)
+        deleteUserUseCase.execute(email)
+        return HttpResponse.noContent<Unit>()
     }
 
 }

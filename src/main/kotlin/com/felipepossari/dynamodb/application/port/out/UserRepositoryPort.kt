@@ -9,4 +9,6 @@ interface UserRepositoryPort {
     fun findByEmail(email: String) : User?
 
     fun update(user: User)
+
+    fun delete(email: String)
 }

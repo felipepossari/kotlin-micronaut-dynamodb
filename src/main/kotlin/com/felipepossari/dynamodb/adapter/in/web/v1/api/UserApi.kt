@@ -21,6 +21,6 @@ interface UserApi {
     @Get("/{email}")
     fun getByEmail(@PathVariable email: String): HttpResponse<UserResponse>
 
-    @Delete("/email")
+    @Delete("/{email}")
     fun delete(@PathVariable email: String): HttpResponse<*>
 }

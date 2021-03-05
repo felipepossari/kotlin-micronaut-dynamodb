@@ -25,6 +25,12 @@ class UserRepository(
     }
 
     override fun update(user: User) {
-        userTable.updateItem(UserEntity(UserCompositeKey(user.email),user))
+        val key = UserCompositeKey(user.email)
+        userTable.updateItem(UserEntity(key, user))
+    }
+
+    override fun delete(email: String) {
+        val key = UserCompositeKey(email).toKey()
+        userTable.deleteItem(key)
     }
 }
