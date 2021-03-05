@@ -5,10 +5,10 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserCreateRequ
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.UserUpdateRequest
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.UserResponse
-import com.felipepossari.dynamodb.application.port.`in`.CreateUserUseCase
-import com.felipepossari.dynamodb.application.port.`in`.DeleteUserUseCase
-import com.felipepossari.dynamodb.application.port.`in`.FindUserByEmailUseCase
-import com.felipepossari.dynamodb.application.port.`in`.UpdateUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.user.CreateUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.user.DeleteUserUseCase
+import com.felipepossari.dynamodb.application.port.`in`.user.FindUserByEmailUseCase
+import com.felipepossari.dynamodb.application.port.`in`.user.UpdateUserUseCase
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import org.slf4j.Logger
