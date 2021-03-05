@@ -13,7 +13,7 @@ class UserEntity() {
     lateinit var pk: String
 
     @get:DynamoDbSortKey
-    lateinit var  sk: String
+    lateinit var sk: String
 
     @get:DynamoDbAttribute("email")
     lateinit var email: String
@@ -26,10 +26,6 @@ class UserEntity() {
 
     @get:DynamoDbAttribute("password")
     lateinit var password: String
-
-    companion object {
-        const val TABLE_NAME: String = "users"
-    }
 
     constructor(compositeKey: UserCompositeKey, user: User) : this() {
         pk = compositeKey.pk

@@ -15,7 +15,8 @@ class UserCompositeKey {
     }
 }
 
-fun UserCompositeKey.toKey(): Key = Key.builder()
-        .partitionValue(pk)
-        .sortValue(sk)
-        .build()
+fun UserCompositeKey.toKey(): Key =
+        Key.builder()
+                .partitionValue(pk)
+                .sortValue(sk)
+                .build()
