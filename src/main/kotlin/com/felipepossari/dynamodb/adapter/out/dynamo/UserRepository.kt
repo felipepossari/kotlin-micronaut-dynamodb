@@ -1,12 +1,12 @@
 package com.felipepossari.dynamodb.adapter.out.dynamo
 
+import com.felipepossari.dynamodb.adapter.out.dynamo.model.UserCompositeKey
 import com.felipepossari.dynamodb.adapter.out.dynamo.model.UserEntity
 import com.felipepossari.dynamodb.adapter.out.dynamo.model.toDomain
+import com.felipepossari.dynamodb.adapter.out.dynamo.model.toKey
 import com.felipepossari.dynamodb.application.domain.User
 import com.felipepossari.dynamodb.application.port.out.UserRepositoryPort
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable
-import software.amazon.awssdk.enhanced.dynamodb.Key
-import software.amazon.awssdk.enhanced.dynamodb.Key.builder
 import javax.inject.Singleton
 
 @Singleton
@@ -15,20 +15,16 @@ class UserRepository(
 ) : UserRepositoryPort {
 
     override fun create(user: User) {
-        val entitiy = UserEntity(user)
-        userTable.putItem(entitiy)
+        val key = UserCompositeKey(user.email)
+        userTable.putItem(UserEntity(key, user))
     }
 
-    override fun findByEmail(email: String): User? =
-            userTable.getItem(createPartitionKey(email))?.toDomain()
+    override fun findByEmail(email: String): User? {
+        val key = UserCompositeKey(email).toKey()
+        return userTable.getItem(key)?.toDomain()
+    }
 
     override fun update(user: User) {
-        userTable.updateItem(UserEntity(user))
+        userTable.updateItem(UserEntity(UserCompositeKey(user.email),user))
     }
-
-    private fun createPartitionKey(email: String) =
-            builder()
-                    .partitionValue("USER#$email")
-                    .sortValue("PROFILE#$email")
-                    .build()
 }

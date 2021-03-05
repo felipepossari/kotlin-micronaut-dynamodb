@@ -7,34 +7,38 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey
 
 @DynamoDbBean
-data class UserEntity(
-        @get:DynamoDbAttribute("email")
-        var email: String = "",
+class UserEntity() {
 
-        @get:DynamoDbPartitionKey
-        var pk: String = "USER#$email",
+    @get:DynamoDbPartitionKey
+    lateinit var pk: String
 
-        @get:DynamoDbSortKey
-        var sk: String = "PROFILE#$email",
+    @get:DynamoDbSortKey
+    lateinit var  sk: String
 
-        @get:DynamoDbAttribute("name")
-        var name: String = "",
+    @get:DynamoDbAttribute("email")
+    lateinit var email: String
 
-        @get:DynamoDbAttribute("phone")
-        var phone: String = "",
+    @get:DynamoDbAttribute("name")
+    lateinit var name: String
 
-        @get:DynamoDbAttribute("password")
-        var password: String = ""
-) {
+    @get:DynamoDbAttribute("phone")
+    lateinit var phone: String
+
+    @get:DynamoDbAttribute("password")
+    lateinit var password: String
+
     companion object {
         const val TABLE_NAME: String = "users"
     }
 
-    constructor(user: User) : this(
-            email = user.email,
-            name = user.name,
-            phone = user.phone,
-            password = user.password)
+    constructor(compositeKey: UserCompositeKey, user: User) : this() {
+        pk = compositeKey.pk
+        sk = compositeKey.sk
+        email = user.email
+        name = user.name
+        phone = user.phone
+        password = user.password
+    }
 }
 
 fun UserEntity.toDomain() =
