@@ -1,4 +1,4 @@
-package com.felipepossari.dynamodb.application.port.`in`
+package com.felipepossari.dynamodb.application.port.`in`.user
 
 import com.felipepossari.dynamodb.application.domain.User
 

@@ -1,4 +1,4 @@
-package com.felipepossari.dynamodb.application.port.`in`
+package com.felipepossari.dynamodb.application.port.`in`.user
 
 interface DeleteUserUseCase {
 
