@@ -1,6 +1,6 @@
 package com.felipepossari.dynamodb.application.domain
 
-class Motorcycle(
+data class Motorcycle(
         val id: String = "",
         val brand: String = "",
         val model: String = "",

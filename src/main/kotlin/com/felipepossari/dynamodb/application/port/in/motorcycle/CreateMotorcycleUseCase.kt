@@ -4,5 +4,5 @@ import com.felipepossari.dynamodb.application.domain.Motorcycle
 
 interface CreateMotorcycleUseCase {
 
-    fun execute(motorcycle: Motorcycle): Motorcycle
+    fun execute(email: String, motorcycle: Motorcycle): Motorcycle
 }

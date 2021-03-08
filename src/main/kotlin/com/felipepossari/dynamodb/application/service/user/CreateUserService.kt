@@ -13,9 +13,6 @@ class CreateUserService(
     override fun execute(user: User): User {
         user.validateFieldForCreation()
         userDataValidator.validateUserUnique(user)
-
-
-
         userRepositoryPort.create(user)
         return user
     }

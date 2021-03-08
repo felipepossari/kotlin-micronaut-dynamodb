@@ -6,13 +6,20 @@ import com.felipepossari.dynamodb.adapter.out.dynamo.model.toDomain
 import com.felipepossari.dynamodb.adapter.out.dynamo.model.toKey
 import com.felipepossari.dynamodb.application.domain.User
 import com.felipepossari.dynamodb.application.port.out.UserRepositoryPort
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema
 import javax.inject.Singleton
 
 @Singleton
-class UserRepository(
-        private val userTable: DynamoDbTable<UserEntity>
-) : UserRepositoryPort {
+class UserRepository : UserRepositoryPort {
+
+    private val userTable: DynamoDbTable<UserEntity>
+
+    constructor(dynamoDbClientEnhancedClient: DynamoDbEnhancedClient) {
+        userTable = dynamoDbClientEnhancedClient
+                .table(TABLE_NAME, TableSchema.fromBean(UserEntity::class.java))
+    }
 
     override fun create(user: User) {
         val key = UserCompositeKey(user.email)

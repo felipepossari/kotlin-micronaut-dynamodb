@@ -1,12 +1,34 @@
 package com.felipepossari.dynamodb.adapter.out.dynamo
 
+import com.felipepossari.dynamodb.adapter.out.dynamo.model.MotorcycleCompositeKey
+import com.felipepossari.dynamodb.adapter.out.dynamo.model.MotorcycleEntity
+import com.felipepossari.dynamodb.adapter.out.dynamo.model.toDomain
 import com.felipepossari.dynamodb.application.domain.Motorcycle
 import com.felipepossari.dynamodb.application.port.out.MotorcycleRepositoryPort
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema
+import java.util.*
 import javax.inject.Singleton
 
 @Singleton
 class MotorcycleRepository : MotorcycleRepositoryPort {
-    override fun save(motorcycle: Motorcycle): Motorcycle {
-        TODO("Not yet implemented")
+
+    private val motorcycleTable: DynamoDbTable<MotorcycleEntity>
+
+    constructor(dynamoDbClientEnhancedClient: DynamoDbEnhancedClient) {
+        motorcycleTable = dynamoDbClientEnhancedClient
+                .table(TABLE_NAME, TableSchema.fromClass(MotorcycleEntity::class.java))
     }
+
+    override fun save(email: String, motorcycle: Motorcycle): Motorcycle {
+        val bike = fillId(motorcycle)
+        val key = MotorcycleCompositeKey(email, bike.id)
+        val bikeEntity = MotorcycleEntity(key, bike)
+        motorcycleTable.putItem(bikeEntity)
+        return bikeEntity.toDomain()
+    }
+
+    private fun fillId(motorcycle: Motorcycle): Motorcycle =
+            motorcycle.copy(id = UUID.randomUUID().toString())
 }
