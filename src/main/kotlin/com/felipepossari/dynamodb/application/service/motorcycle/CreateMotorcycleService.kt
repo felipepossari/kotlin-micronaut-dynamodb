@@ -10,6 +10,7 @@ class CreateMotorcycleService(
         private val motorcycleRepositoryPort: MotorcycleRepositoryPort
 ) : CreateMotorcycleUseCase {
     override fun execute(email: String, motorcycle: Motorcycle): Motorcycle {
+        motorcycle.validateFieldsForCreate()
         return motorcycleRepositoryPort.save(email, motorcycle)
     }
 }

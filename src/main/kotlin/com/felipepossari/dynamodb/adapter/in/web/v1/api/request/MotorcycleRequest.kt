@@ -19,3 +19,13 @@ fun MotorcycleRequest.toDomain(): Motorcycle =
                 color = this.color
         )
 
+fun MotorcycleRequest.toDomain(id: String): Motorcycle =
+        Motorcycle(
+                id = id,
+                brand = this.brand,
+                model = this.model,
+                manufactureYear = this.manufactureYear,
+                modelYear = this.modelYear,
+                color = this.color
+        )
+

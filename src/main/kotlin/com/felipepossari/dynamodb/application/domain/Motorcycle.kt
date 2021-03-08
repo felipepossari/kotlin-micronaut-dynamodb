@@ -46,8 +46,7 @@ data class Motorcycle(
         }
     }
 
-    private fun validateId(id: String): ErrorReason? {
-        if (id.isEmpty()) {
+    private fun validateId(id: String): ErrorReason? {if (id.isEmpty()) {
             return ErrorReason.ID_INVALID
         } else {
             try {
