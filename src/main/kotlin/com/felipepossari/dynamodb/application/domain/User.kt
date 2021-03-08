@@ -10,10 +10,10 @@ data class User(
         val password: String = ""
 ) {
     companion object {
-        private const val EMAIL_MAX_LENGHT: Int = 256
-        private const val NAME_MAX_LENGHT: Int = 256
-        private const val PHONE_MAX_LENGHT: Int = 256
-        private const val PASSWORD_MAX_LENGHT: Int = 256
+        private const val EMAIL_MAX_LENGTH: Int = 256
+        private const val NAME_MAX_LENGTH: Int = 256
+        private const val PHONE_MAX_LENGTH: Int = 256
+        private const val PASSWORD_MAX_LENGTH: Int = 256
     }
 
     fun validateFieldForCreation() {
@@ -40,28 +40,28 @@ data class User(
     }
 
     private fun validateEmail(email: String): ErrorReason? =
-            if (email.isEmpty() || email.length >= EMAIL_MAX_LENGHT) {
+            if (email.isEmpty() || email.length >= EMAIL_MAX_LENGTH) {
                 ErrorReason.EMAIL_INVALID
             } else {
                 null
             }
 
     private fun validateName(name: String): ErrorReason? =
-            if (name.isEmpty() || name.length >= NAME_MAX_LENGHT) {
+            if (name.isEmpty() || name.length >= NAME_MAX_LENGTH) {
                 ErrorReason.NAME_INVALID
             } else {
                 null
             }
 
     private fun validatePhone(phone: String): ErrorReason? =
-            if (phone.isEmpty() || phone.length >= PHONE_MAX_LENGHT) {
+            if (phone.isEmpty() || phone.length >= PHONE_MAX_LENGTH) {
                 ErrorReason.PHONE_INVALID
             } else {
                 null
             }
 
     private fun validatePassword(password: String): ErrorReason? =
-            if (password.isEmpty() || password.length >= PASSWORD_MAX_LENGHT) {
+            if (password.isEmpty() || password.length >= PASSWORD_MAX_LENGTH) {
                 ErrorReason.PASSWORD_INVALID
             } else {
                 null
