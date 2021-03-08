@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "05ab074f-6eee-409d-ac7a-f1ce70b1cdfd",
+		"name": "kotlin-micronaut-dynamodb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get User by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe2@hotmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe2@hotmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"fcpfelipe@hotmail.com\",\n    \"name\":\"Felipe Possari\",\n    \"phone\":\"55 11 2233 4455\",\n    \"password\":\"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Felipe\",\n    \"phone\":\"123\",\n    \"password\":\"4444\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe@hotmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe@hotmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Motorcycle",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"brand\": \"Yamaha\",\n    \"model\": \"XTZ Tenere 250\",\n    \"manufactureYear\": 2011,\n    \"modelYear\": 2011,\n    \"color\": \"White\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe@hotmail.com/motorcycles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe@hotmail.com",
+						"motorcycles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Motorcycle",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"brand\": \"Yamahaa\",\n    \"model\": \"XTZ Tenere 250\",\n    \"manufactureYear\": 2013,\n    \"modelYear\": 2013,\n    \"color\": \"White\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe@hotmail.com/motorcycles/e46117f6-3bc8-4944-9439-0465fed3bf8c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe@hotmail.com",
+						"motorcycles",
+						"e46117f6-3bc8-4944-9439-0465fed3bf8c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Motorcycle by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe@hotmail.com/motorcycles/e46117f6-3bc8-4944-9439-0465fed3bf8c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe@hotmail.com",
+						"motorcycles",
+						"e46117f6-3bc8-4944-9439-0465fed3bf8c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete motorcycle",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe@hotmail.com/motorcycles/d1ae8316-9a00-4fd8-ba92-52b4ec074f2c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe@hotmail.com",
+						"motorcycles",
+						"d1ae8316-9a00-4fd8-ba92-52b4ec074f2c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Motorcycle by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/fcpfelipe@hotmail.com/motorcycles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"fcpfelipe@hotmail.com",
+						"motorcycles"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
