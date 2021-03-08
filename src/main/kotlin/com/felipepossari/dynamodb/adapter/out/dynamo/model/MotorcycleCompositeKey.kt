@@ -6,8 +6,12 @@ import software.amazon.awssdk.enhanced.dynamodb.Key
 
 class MotorcycleCompositeKey {
 
-    var pk: String
-    var sk: String
+    var pk: String = ""
+    var sk: String = ""
+
+    constructor(email: String) {
+        pk = "$MOTORCYCLE_HASH_KEY$email"
+    }
 
     constructor(email: String, motorcycleId: String) {
         pk = "$MOTORCYCLE_HASH_KEY$email"
@@ -19,4 +23,10 @@ fun MotorcycleCompositeKey.toKey(): Key =
         Key.builder()
                 .partitionValue(pk)
                 .sortValue(sk)
+                .build()
+
+fun MotorcycleCompositeKey.toGetAllMotorcycleKey(): Key =
+        Key.builder()
+                .partitionValue(pk)
+                .sortValue(MOTORCYCLE_SORT_KEY)
                 .build()

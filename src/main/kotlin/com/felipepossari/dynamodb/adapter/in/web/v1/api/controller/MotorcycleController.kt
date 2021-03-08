@@ -7,6 +7,7 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.MotorcycleRes
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.CreateMotorcycleUseCase
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.DeleteMotorcycleUseCase
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.FindMotorcycleByIdUseCase
+import com.felipepossari.dynamodb.application.port.`in`.motorcycle.GetAllMotorcycleUseCase
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.UpdateMotorcycleUseCase
 import io.micronaut.http.annotation.Controller
 import org.slf4j.Logger
@@ -17,7 +18,8 @@ class MotorcycleController(
         private val createMotorcycleUseCase: CreateMotorcycleUseCase,
         private val updateMotorcycleUseCase: UpdateMotorcycleUseCase,
         private val findMotorcycleUseCase: FindMotorcycleByIdUseCase,
-        private val deleteMotorcycleUseCase: DeleteMotorcycleUseCase
+        private val deleteMotorcycleUseCase: DeleteMotorcycleUseCase,
+        private val getAllMotorcycleUseCase: GetAllMotorcycleUseCase
 ) : MotorcycleApi {
 
     companion object {
@@ -42,9 +44,10 @@ class MotorcycleController(
         return MotorcycleResponse(bike)
     }
 
-    override fun getById(email: String): List<MotorcycleResponse> {
-        logger.info("Getting motorcycles")
-        TODO("Not yet implemented")
+    override fun getByEmail(email: String): List<MotorcycleResponse> {
+        logger.info("Getting all motorcycles")
+        val bikes = getAllMotorcycleUseCase.execute(email)
+        return bikes.map { MotorcycleResponse(it) }
     }
 
     override fun delete(email: String, motorcycleId: String) {
