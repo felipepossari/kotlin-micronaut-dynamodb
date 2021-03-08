@@ -5,6 +5,7 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.MotorcycleRequ
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.MotorcycleResponse
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.CreateMotorcycleUseCase
+import com.felipepossari.dynamodb.application.port.`in`.motorcycle.FindMotorcycleByIdUseCase
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.UpdateMotorcycleUseCase
 import io.micronaut.http.annotation.Controller
 import org.slf4j.Logger
@@ -13,7 +14,8 @@ import org.slf4j.LoggerFactory
 @Controller("/users/{email}/motorcycles")
 class MotorcycleController(
         private val createMotorcycleUseCase: CreateMotorcycleUseCase,
-        private val updateMotorcycleUseCase: UpdateMotorcycleUseCase
+        private val updateMotorcycleUseCase: UpdateMotorcycleUseCase,
+        private val findMotorcycleUseCase: FindMotorcycleByIdUseCase
 ) : MotorcycleApi {
 
     companion object{
@@ -34,7 +36,8 @@ class MotorcycleController(
 
     override fun getById(email: String, motorcycleId: String): MotorcycleResponse {
         logger.info("Getting motorcycle by Id")
-        TODO("Not yet implemented")
+        val bike = findMotorcycleUseCase.execute(email, motorcycleId)
+        return MotorcycleResponse(bike)
     }
 
     override fun getById(email: String): List<MotorcycleResponse> {
