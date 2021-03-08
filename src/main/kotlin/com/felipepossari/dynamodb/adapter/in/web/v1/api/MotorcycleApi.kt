@@ -26,6 +26,7 @@ interface MotorcycleApi {
     @Get
     fun getById(@PathVariable email: String): List<MotorcycleResponse>
 
-    @Delete
-    fun delete(@PathVariable email: String)
+    @Delete("{motorcycleId}")
+    fun delete(@PathVariable email: String,
+               @PathVariable motorcycleId: String)
 }

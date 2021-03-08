@@ -9,4 +9,6 @@ interface MotorcycleRepositoryPort {
     fun findById(email: String, motorcycleId: String): Motorcycle?
 
     fun update(email: String, motorcycle: Motorcycle): Motorcycle
+
+    fun delete(email: String, motorcycle: Motorcycle)
 }

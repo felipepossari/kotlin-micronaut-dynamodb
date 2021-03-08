@@ -40,6 +40,11 @@ class MotorcycleRepository : MotorcycleRepositoryPort {
         return motorcycleTable.updateItem(MotorcycleEntity(compositeKey, motorcycle)).toDomain()
     }
 
+    override fun delete(email: String, motorcycle: Motorcycle) {
+        val compositeKey = MotorcycleCompositeKey(email, motorcycle.id)
+        motorcycleTable.deleteItem(compositeKey.toKey())
+    }
+
     private fun fillId(motorcycle: Motorcycle): Motorcycle =
             motorcycle.copy(id = UUID.randomUUID().toString())
 }

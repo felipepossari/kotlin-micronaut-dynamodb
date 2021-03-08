@@ -5,6 +5,7 @@ import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.MotorcycleRequ
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.request.toDomain
 import com.felipepossari.dynamodb.adapter.`in`.web.v1.api.response.MotorcycleResponse
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.CreateMotorcycleUseCase
+import com.felipepossari.dynamodb.application.port.`in`.motorcycle.DeleteMotorcycleUseCase
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.FindMotorcycleByIdUseCase
 import com.felipepossari.dynamodb.application.port.`in`.motorcycle.UpdateMotorcycleUseCase
 import io.micronaut.http.annotation.Controller
@@ -15,10 +16,11 @@ import org.slf4j.LoggerFactory
 class MotorcycleController(
         private val createMotorcycleUseCase: CreateMotorcycleUseCase,
         private val updateMotorcycleUseCase: UpdateMotorcycleUseCase,
-        private val findMotorcycleUseCase: FindMotorcycleByIdUseCase
+        private val findMotorcycleUseCase: FindMotorcycleByIdUseCase,
+        private val deleteMotorcycleUseCase: DeleteMotorcycleUseCase
 ) : MotorcycleApi {
 
-    companion object{
+    companion object {
         private val logger: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
     }
 
@@ -45,8 +47,8 @@ class MotorcycleController(
         TODO("Not yet implemented")
     }
 
-    override fun delete(email: String) {
+    override fun delete(email: String, motorcycleId: String) {
         logger.info("Deleting motorcycle")
-        TODO("Not yet implemented")
+        deleteMotorcycleUseCase.execute(email, motorcycleId)
     }
 }
